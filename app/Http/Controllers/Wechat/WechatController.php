@@ -344,7 +344,15 @@ class WechatController extends Controller
 	   
 	   $get = json_decode(file_get_contents($user),true);
 
-	   dd($get);
+	   $access_token = $get["access_token"];
+
+	   $openid = $get["openid"];
+
+	   $users = "https://api.weixin.qq.com/sns/userinfo?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
+
+	   $xinxi = json_decode(file_get_contents($users),true);
+
+	   dd($xinxi);
   }
    public function assecc_token(){
 	  $key = "AccessToken";
