@@ -78,11 +78,8 @@ Route::post('/coupon/test','CouponController@test');
 
 //微信
 Route::prefix('/wx')->group(function(){
-    Route::get('/','Wechat\WechatController@wechat');       //接入
-    Route::get('/token','WxController@getAccessToken');        //获取access_token
-    Route::get('/create_menu','WxController@createMenu');        //创建菜单
-    Route::get('/upload_media','WxController@uploadMedia');        //上传素材
-    Route::get('/send_all','WxController@sendAll');         //群发消息
+    Route::post('/','Wechat\WechatController@wechat');       //接入
+  
 
 });
 
