@@ -94,14 +94,7 @@ class WechatController extends Controller
 					}
 					if($obj->Event == "VIEW"){
 
-						if($obj->EventKey == "http://www.wangshuxin.top/"){
-
-							 
-						      $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3d6c4ee4ee8c6159&redirect_uri=http://www.wangshuxin.top/wx/code&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-							  file_get_contents($url);
-							
-							 
-						}
+					
 						$content = "";
 					   
 					}
@@ -351,7 +344,10 @@ class WechatController extends Controller
 
 	   $xinxi = json_decode(file_get_contents($users),true);
 
-	   dd($xinxi);
+	  if($xinxi){
+	  
+	    return redirect("http://www.wangshuxin.top/");
+	  }
   }
    public function assecc_token(){
 	  $key = "AccessToken";
