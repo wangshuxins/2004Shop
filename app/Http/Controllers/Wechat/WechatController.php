@@ -94,8 +94,12 @@ class WechatController extends Controller
 					}
 					if($obj->Event == "VIEW"){
 
-						$content = "";
-					
+						if($obj->EventKey == "http://www.wangshuxin.top/"){
+						
+						
+						      $content = "http://www.wangshuxin.top/";
+						
+						}
 					   //$url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 					}
 					
