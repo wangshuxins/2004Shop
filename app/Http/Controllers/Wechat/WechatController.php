@@ -326,7 +326,7 @@ class WechatController extends Controller
   }
   public function code(){
        $code = $_GET['code'];
-	    file_put_contents("ddd.log",$code);
+	   file_put_contents("ddd.log","13");
 	   dd($code);
   }
    public function assecc_token(){
