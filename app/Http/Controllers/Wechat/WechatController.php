@@ -335,8 +335,12 @@ class WechatController extends Controller
 	   $secret = env("SECRET");
 
 	   $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$appid."&secret=".$secret."&code=".$code."&grant_type=authorization_code";
+
+       $refresh_token = $url['refresh_token'];
+
+	   $user = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=".$appid."&grant_type=refresh_token&refresh_token=".$refresh_token;
 	   
-	   $get = json_decode(file_get_contents($url),true);
+	   $get = json_decode(file_get_contents($user),true);
 
 	   dd($get);
   }
