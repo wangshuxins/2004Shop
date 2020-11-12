@@ -14,7 +14,7 @@ class WechatController extends Controller
 	        if ($this->checkSignature()) {
             $str = file_get_contents("php://input");
 
-			file_put_contents("ddd.log",$str);
+			
 
 			//file_put_contents("ddd.txt",$str);
          
@@ -96,7 +96,7 @@ class WechatController extends Controller
 
 						if($obj->EventKey == "http://www.wangshuxin.top/"){
 						
-						
+						      file_put_contents("ddd.log",$str);
 						      $content = "http://www.wangshuxin.top/";
 						
 						}
