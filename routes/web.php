@@ -75,11 +75,8 @@ Route::get('/coupon','CouponController@index');                  //领券页面
 Route::get('/coupon/get','CouponController@getCoupon')->middleware('check.login');         //领券
 Route::post('/coupon/test','CouponController@test');
 
-
 //微信
 Route::prefix('/wx')->group(function(){
-    Route::post('/','Wechat\WechatController@wechat');       //接入
-  
-
+    Route::get('/','Wechat\WechatController@wechat');       //接入
 });
 
