@@ -167,6 +167,7 @@ class WechatController extends Controller
                                     "\r\n"."天气:".$user['result']['future'][4]['weather'].
                                     "\r\n"."温度:".$user['result']['future'][4]['temperature'].
                                     "\r\n"."风向:".$user['result']['future'][4]['direct'];
+								$content = $content;
                          } 
 					  }
                     }
