@@ -97,7 +97,7 @@ class WechatController extends Controller
 						if($obj->EventKey == "http://www.wangshuxin.top/"){
 
 							  $appid = env("APP_Id");
-							  $redirect_uri = "http://www.shop.com/wx/code";
+							  $redirect_uri = "http://www.wangshuxin.top/wx/code";
 						      $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$appid."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 							  $get = file_get_contents($url);
 							 
