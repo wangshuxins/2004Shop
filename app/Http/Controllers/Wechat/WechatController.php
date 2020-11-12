@@ -95,12 +95,15 @@ class WechatController extends Controller
 					if($obj->Event == "VIEW"){
 
 						if($obj->EventKey == "http://www.wangshuxin.top/"){
-						
-						      file_put_contents("ddd.log",$str);
-						      $content = "http://www.wangshuxin.top/";
-						
+
+							  $appid = env("APP_Id");
+		                      $secret = env("SECRET");
+							  $redirect_uri = "http://www.shop.com/wx/code";
+
+						      $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$appid."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 						}
-					   //$url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+						$content = "";
+					   
 					}
 					
 					 if ($obj->Event == "CLICK") {
@@ -320,6 +323,10 @@ class WechatController extends Controller
     }else{
         return false;
     }
+  }
+  public function code(){
+       $code = $_GET['code'];
+	   dd($code);
   }
    public function assecc_token(){
 	  $key = "AccessToken";
