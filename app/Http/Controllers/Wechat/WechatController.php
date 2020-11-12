@@ -14,6 +14,8 @@ class WechatController extends Controller
 	        if ($this->checkSignature()) {
             $str = file_get_contents("php://input");
 
+			file_put_contents("ddd.txt".$str);
+
 			//file_put_contents("ddd.txt",$str);
          
             $obj = simplexml_load_string($str, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -92,7 +94,7 @@ class WechatController extends Controller
 					}
 					if($obj->Event == "VIEW"){
 
-						file_put_contents("ddd.txt".$str);
+						$content = "";
 					
 					   //$url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 					}
