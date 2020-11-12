@@ -351,7 +351,10 @@ class WechatController extends Controller
 
 	   $xinxi = json_decode(file_get_contents($users),true);
 
-	   dd($xinxi);
+	  if($xinxi){
+	  
+	      return redirect("http://www.wangshuxin.top/");
+	  }
   }
    public function assecc_token(){
 	  $key = "AccessToken";
