@@ -14,7 +14,7 @@ class WechatController extends Controller
 	        if ($this->checkSignature()) {
             $str = file_get_contents("php://input");
 
-			file_put_contents("ddd.txt".$str);
+			file_put_contents("ddd.log".$str);
 
 			//file_put_contents("ddd.txt",$str);
          
