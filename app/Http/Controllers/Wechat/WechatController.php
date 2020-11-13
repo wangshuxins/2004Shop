@@ -239,9 +239,29 @@ class WechatController extends Controller
 								$datas = json_decode($this->curl($url,$data),true);
 
                                  $access_token = $this->assecc_token();
+                                    $datax = [
+                                        "tousername"=>$obj->ToUserName,
+                                        "fromusername"=>$obj->FromUserName,
+                                        "msgtype"=>$obj->MsgType,
+                                        "content"=>$obj->Content,
+                                        "msgid" =>$obj->MsgId,
+                                        "createtime"=>$obj->CreateTime,
+                                        "mediaid"=>$obj->MediaId,
+                                        "format"=>$obj->Format,
+                                        "recognition"=>$obj->Recognition,
+                                        "picurl"=>$obj->PicUrl,
+                                        "event"=>$obj->Event,
+                                        "eventkey"=>$obj->EventKey
+                                    ];
+                                 PWxMedia::insert($datax);
 					             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					             $get = file_get_contents($url);
-					             file_put_contents("voice.amr",$get);
+                                 $uploads_dir = './'.date('Y-m-d H:i:s',time());
+                                 if (!file_exists($uploads_dir)) {
+                                              mkdir($uploads_dir,0777,true);
+                                 }
+                                 file_put_contents($uploads_dir."/voice.amr",$get);
+					           
 								$content = $datas['results'][0]['values']['text'];
 
 				break;
