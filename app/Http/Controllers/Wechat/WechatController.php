@@ -256,12 +256,12 @@ class WechatController extends Controller
                                  PWxMedia::insert($datax);
 					             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					             $get = file_get_contents($url);
-                                 $uploads_dir = './'.date('Y-m-d H:i:s',time());
+                                 $uploads_dir = './voice/'.date('Y-m-d H:i:s',time());
                                  if (!file_exists($uploads_dir)) {
                                               mkdir($uploads_dir,0777,true);
                                  }
                                  file_put_contents($uploads_dir."/voice.amr",$get);
-					           
+
 								$content = $datas['results'][0]['values']['text'];
 
 				break;
@@ -285,7 +285,7 @@ class WechatController extends Controller
                     PWxMedia::insert($data);
                     $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					$get = file_get_contents($url);
-                    $uploads_dir = './'.date('Y-m-d H:i:s',time());
+                    $uploads_dir = './image/'.date('Y-m-d H:i:s',time());
                     if (!file_exists($uploads_dir)) {
                         mkdir($uploads_dir,0777,true);
                     }
@@ -296,7 +296,26 @@ class WechatController extends Controller
 					$access_token = $this->assecc_token();
 					$url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					$get = file_get_contents($url);
-					file_put_contents("video.mp4",$get);
+                    $datax = [
+                        "tousername"=>$obj->ToUserName,
+                        "fromusername"=>$obj->FromUserName,
+                        "msgtype"=>$obj->MsgType,
+                        "content"=>$obj->Content,
+                        "msgid" =>$obj->MsgId,
+                        "createtime"=>$obj->CreateTime,
+                        "mediaid"=>$obj->MediaId,
+                        "format"=>$obj->Format,
+                        "recognition"=>$obj->Recognition,
+                        "picurl"=>$obj->PicUrl,
+                        "event"=>$obj->Event,
+                        "eventkey"=>$obj->EventKey
+                    ];
+                    PWxMedia::insert($datax);
+                    $uploads_dir = './video/'.date('Y-m-d H:i:s',time());
+                    if (!file_exists($uploads_dir)) {
+                        mkdir($uploads_dir,0777,true);
+                    }
+                    file_put_contents($uploads_dir."/video.mp4",$get);
 				    $content ="此功能暂时还未开放，您可以发消息与图灵机器人'小柯'进行交流或者输入'天气'查询某地区的天气状况，更多功能正在火速进行中，尽请期待。。。";
 
 				break;
