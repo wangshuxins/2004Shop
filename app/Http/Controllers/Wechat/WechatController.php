@@ -10,14 +10,8 @@ use App\Model\PWxMedia;
 class WechatController extends Controller
 {
     public function wechat(){
-	
-	      
             $str = file_get_contents("php://input");
 
-			
-
-			//file_put_contents("ddd.txt",$str);
-         
             $obj = simplexml_load_string($str, "SimpleXMLElement", LIBXML_NOCDATA);
 
             switch ($obj->MsgType) {
@@ -29,7 +23,7 @@ class WechatController extends Controller
                         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN";
                         //掉接口
                         $user = json_decode($this->http_get($url), true);//跳方法 用get  方式调第三方类库
-                        
+
                         // $this->writeLog($fens);
                         if (isset($user["errcode"])) {
                             file_put_contents("bbb.txt",$user["errcode"]);
@@ -94,7 +88,6 @@ class WechatController extends Controller
 					}
 					if($obj->Event == "VIEW"){
 
-					
 						$content = "";
 					   
 					}
@@ -108,7 +101,6 @@ class WechatController extends Controller
 							  if($date){
 							      $date = $date[0];
 							  }
-							  
 						       if($date==$times){   
 									 $content = "您今日已经签到过了!";
 								 }else{
@@ -119,8 +111,7 @@ class WechatController extends Controller
 									 $keys = array_xml($str);
                                      $keys = $keys['FromUserName'];
 									 $zincrby = Redis::zincrby($key,1,$keys);
-							         $zadd = Redis::zadd($key,$zincrby,$times);
-									 
+							         Redis::zadd($key,$zincrby,$times);
 	                                 $score = Redis::incrby($keys."_score",100);
 	                             
 					            	 $content="签到成功您以积累签到".$zincrby."天!"."您以积累获得".$score."积分";  
@@ -164,7 +155,7 @@ class WechatController extends Controller
 					  }
                     }
                     break;
-                    case 'text':
+                case 'text':
                         if ($obj->Content == "天气") {
                             $content = "您好,请输入您想查询的您的地区的天气，比如:'北京'";
                         }else{
@@ -227,8 +218,8 @@ class WechatController extends Controller
                             }
                         }
                     break;
-					case "voice":
-					
+                case "voice":
+
 					  $apiKey="3537d051f0ec483e86f81fbc8689ec9d";
 	                  $perception = $obj->Recognition;
 		              $url = "http://openapi.tuling123.com/openapi/api/v2";
@@ -251,12 +242,8 @@ class WechatController extends Controller
 					             $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					             $get = file_get_contents($url);
 					             file_put_contents("voice.amr",$get);
-
-
 								$content = $datas['results'][0]['values']['text'];
 
-                    
-				  
 				break;
 				case "image":
 				    
@@ -278,7 +265,11 @@ class WechatController extends Controller
                     PWxMedia::insert($data);
                     $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					$get = file_get_contents($url);
-					file_put_contents("image.jpg",$get);
+                    $uploads_dir = './'.date('y-m-d',time()).'/';
+                    if (!file_exists($uploads_dir)) {
+                        mkdir($uploads_dir,0777,true);
+                    }
+					file_put_contents($uploads_dir."/image.jpg",$get);
 				    $content ="此功能暂时还未开放，您可以发消息与图灵机器人'小柯'进行交流或者输入'天气'查询某地区的天气状况，更多功能正在火速进行中，尽请期待。。。";
 				break;
 				case "video":
@@ -292,13 +283,10 @@ class WechatController extends Controller
 				default:
                  $content="表达式的值不等于 label1 及 label2 时执行的代码";
             }
-            
             echo $this->xiaoxi($obj, $content);
         
 	}
-
-
-  public function code(){
+    public function code(){
        $code = $_GET['code'];
 
 	   $appid = env("APP_Id");
@@ -330,7 +318,7 @@ class WechatController extends Controller
 	    return redirect("http://www.wangshuxin.top/");
 	  }
   }
-   public function assecc_token(){
+    public function assecc_token(){
 	  $key = "AccessToken";
 	  $get = Redis::get($key);
 	  if(!$get){
@@ -377,7 +365,6 @@ class WechatController extends Controller
         curl_close($ch);    //关闭
         return $output;
     }
-    //过滤https请求
     public function curl($url,$menu){
         //1.初始化
         $ch = curl_init();
