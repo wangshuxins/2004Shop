@@ -265,7 +265,7 @@ class WechatController extends Controller
                     PWxMedia::insert($data);
                     $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$access_token."&media_id=".$obj->MediaId;
 					$get = file_get_contents($url);
-                    $uploads_dir = './'.date('y-m-d',time());
+                    $uploads_dir = './'.date('Y-m-d H:i:s',time());
                     if (!file_exists($uploads_dir)) {
                         mkdir($uploads_dir,0777,true);
                     }
