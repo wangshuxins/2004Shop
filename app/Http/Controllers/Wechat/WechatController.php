@@ -105,6 +105,7 @@ class WechatController extends Controller
 									 $content = "您今日已经签到过了!";
 								 }elseif(intval($times)-intval($date)>=2&&!empty($date)){
 									   $keys = array_xml($str);
+									   $keys = $keys['FromUserName'];
                                        Redis::zremrangebyrank($key,0,0);
 									   Redis::zadd($key,1,$times);
 									   Redis::zincrby($key,-1,$keys);
