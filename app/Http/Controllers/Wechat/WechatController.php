@@ -463,6 +463,6 @@ class WechatController extends Controller
                     </item>
                   </Articles>
                </xml>";
-              echo $xml;
+        echo $xml;
     }
 }
