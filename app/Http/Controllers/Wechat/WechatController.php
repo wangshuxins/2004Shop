@@ -126,7 +126,7 @@ class WechatController extends Controller
 					            	 $content="签到成功您以积累签到".$zincrby."天!"."您以积累获得".$score."积分";  
 							   }
 						 }else if($obj->EventKey=="wx_data"){
-                                echo $this->picture($obj);
+                                echo $this->picture($obj);exit;
                          }else{
 						    $city =  urlencode("北京");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
