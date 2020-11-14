@@ -431,17 +431,11 @@ class WechatController extends Controller
     //回复图文
     public function picture($obj){
 
-        $str = "";
-        for ($index = 0; $index < 107; $index++) {
-            $number = (rand() % 107);
-            $str.= $number."|";
-        }
-        $substr =  substr($str,0,4);
-        $array = explode('|',$substr);
-        $offset = $array[0];
-        $limit = $array[1];
+        $count = Goods::count();
 
-        $goods = Goods::offset($offset)->limit($limit)->first()->toArray();
+        $rand = rand(1,$count);
+
+        $goods = Goods::orderBy("goods_id","asc")->where("goods_id",$rand)->first()->toArray();
 
         $goods_name = $goods['goods_name'];
 
