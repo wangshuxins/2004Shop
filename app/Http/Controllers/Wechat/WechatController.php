@@ -96,7 +96,7 @@ class WechatController extends Controller
 
 						 if($obj->EventKey=="wx_521"){
                               $key = $obj->FromUserName;
-							  $times = "20201120";
+							  $times = "20201111";
                               $date = Redis::zrange($key,0,-1);
 							  if($date){
 							      $date = $date[0];
@@ -106,7 +106,9 @@ class WechatController extends Controller
 								 }elseif(intval($times)-intval($date)>=2&&!empty($date)){
                                        Redis::zremrangebyrank($key,0,0);
 									   Redis::zadd($key,1,$times);
-									   $content = "签到成功，由于您之前没有进行签到，今日已积累签到第一天!";
+									   Redis::zincrby($key,-1,$keys);
+									   $day = Redis::get($keys."_score");
+									   $content = "签到成功，由于您之前没有进行签到，今日已积累签到第一天,已拥有".$day."积分";
                                  }else{
 									 $zcard = Redis::zcard($key);
 									 if($zcard>=1){
