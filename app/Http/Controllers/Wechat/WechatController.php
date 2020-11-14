@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use App\Model\User;
 use App\Model\PWxMedia;
+use App\Model\Goods;
 class WechatController extends Controller
 {
     public function wechat(){
@@ -125,8 +126,7 @@ class WechatController extends Controller
 					            	 $content="签到成功您以积累签到".$zincrby."天!"."您以积累获得".$score."积分";  
 							   }
 						 }else if($obj->EventKey=="wx_data"){
-                                  $content = "今日推荐";
-
+                                 echo $this->xiaoxi($obj);
                          }else{
 						    $city =  urlencode("北京");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
@@ -427,5 +427,49 @@ class WechatController extends Controller
         //关闭
         curl_close($ch);
         return $output;
+    }
+    //回复图文
+    public function picture($obj){
+
+        $str = "";
+        for ($index = 0; $index < 107; $index++) {
+            $number = (rand() % 107);
+            $str.= $number."|";
+        }
+
+        $substr =  substr($str,0,4);
+        $array = explode('|',$substr);
+        $offset = $array[0];
+        $limit = $array[1];
+
+
+        $goods = Goods::offset($offset)->limit($limit)->first()->toArray();
+
+        $goods_name = $goods['goods_name'];
+
+        $goods_desc = $goods['goods_desc'];
+
+        $goods_img = $goods['goods_imgs'];
+
+        $goods_url = $goods['goods_url'];
+
+        $touser = $obj->FromUserName;
+        $fromuser = $obj->ToUserName;
+        $xml = "<xml>
+                  <ToUserName><![CDATA['.$touser.']]></ToUserName>
+                  <FromUserName><![CDATA['.$fromuser.']]></FromUserName>
+                  <CreateTime>time()</CreateTime>
+                  <MsgType><![CDATA[news]]></MsgType>
+                  <ArticleCount>1</ArticleCount>
+                  <Articles>
+                    <item>
+                      <Title><![CDATA['.$goods_name.']]></Title>
+                      <Description><![CDATA['.$goods_desc.']]></Description>
+                      <PicUrl><![CDATA['.$goods_img.']]></PicUrl>
+                      <Url><![CDATA['.$goods_url.']]></Url>
+                    </item>
+                  </Articles>
+               </xml>";
+              echo $xml;
     }
 }
