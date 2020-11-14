@@ -96,7 +96,7 @@ class WechatController extends Controller
 
 						 if($obj->EventKey=="wx_521"){
                               $key = $obj->FromUserName;
-							  $times = "20201115";
+							  $times = "20201116";
                               $date = Redis::zrange($key,0,-1);
 							  if($date){
 							      $date = $date[0];
