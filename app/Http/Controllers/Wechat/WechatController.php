@@ -447,11 +447,12 @@ class WechatController extends Controller
 
         $goods_desc = $goods['goods_desc'];
 
-        $goods_img = $goods['goods_imgs'];
+        $goods_img = $goods['goods_img'];
 
         $goods_url = $goods['goods_url'];
 
         $touser = $obj->FromUserName;
+
         $fromuser = $obj->ToUserName;
         $xml = "<xml>
                   <ToUserName><![CDATA['.$touser.']]></ToUserName>
