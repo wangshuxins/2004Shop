@@ -91,9 +91,7 @@ class WechatController extends Controller
 						$content = "";
 					   
 					}
-					
 					 if ($obj->Event == "CLICK") {
-
 						 if($obj->EventKey=="wx_521"){
                               $key = $obj->FromUserName;
 							  $times = date("Ymd",time());
@@ -126,8 +124,10 @@ class WechatController extends Controller
 	                             
 					            	 $content="签到成功您以积累签到".$zincrby."天!"."您以积累获得".$score."积分";  
 							   }
-						 }else{
-						 
+						 }else if($obj->EventKey=="wx_data"){
+                                  $content = "今日推荐";
+
+                         }else{
 						    $city =  urlencode("北京");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
                             $url = "http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
@@ -229,7 +229,6 @@ class WechatController extends Controller
                         }
                     break;
                 case "voice":
-
 					  $apiKey="3537d051f0ec483e86f81fbc8689ec9d";
 	                  $perception = $obj->Recognition;
 		              $url = "http://openapi.tuling123.com/openapi/api/v2";
@@ -333,7 +332,6 @@ class WechatController extends Controller
                  $content="表达式的值不等于 label1 及 label2 时执行的代码";
             }
             echo $this->xiaoxi($obj, $content);
-        
 	}
     public function code(){
        $code = $_GET['code'];
