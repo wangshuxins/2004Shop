@@ -109,9 +109,10 @@ class WechatController extends Controller
 									   $keys = $keys['FromUserName'];
                                        Redis::zremrangebyrank($key,0,0);
 									   Redis::zadd($key,1,$times);
-									   Redis::zincrby($key,-1,$keys);
-									   $day = Redis::get($keys."_score");
-									   $content = "签到成功，由于您之前没有进行签到，今日已积累签到第一天,已拥有".$day."积分";
+									   $score = Redis::zincrby($key,-1,$keys);
+									   Redis::zincrby($key,-intval($score)+1,$keys);
+									   $score = Redis::incrby($keys."_score",100);
+									   $content = "签到成功，由于您之前没有进行签到，今日已积累签到第一天,已拥有".$score."积分";
                                  }else{
 									 $zcard = Redis::zcard($key);
 									 if($zcard>=1){
