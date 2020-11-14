@@ -104,7 +104,7 @@ class WechatController extends Controller
 						       if($date==$times){   
 									 $content = "您今日已经签到过了!";
 								 }elseif(intval($times)-intval($date)>=2&&!empty($date)){
-                                       Redis::zrem($key,$times);
+                                       Redis::zremrangebyrank($key,0,0);
 									   Redis::zadd($key,1,$times);
 									   $content = "签到成功，由于您之前没有进行签到，今日已积累签到第一天!";
                                  }else{
