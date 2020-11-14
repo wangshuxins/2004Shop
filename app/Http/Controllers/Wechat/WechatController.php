@@ -455,17 +455,17 @@ class WechatController extends Controller
 
         $fromuser = $obj->ToUserName;
         $xml = "<xml>
-                  <ToUserName><![CDATA['.$touser.']]></ToUserName>
-                  <FromUserName><![CDATA['.$fromuser.']]></FromUserName>
+                  <ToUserName><![CDATA[".$touser."]]></ToUserName>
+                  <FromUserName><![CDATA[".$fromuser."]]></FromUserName>
                   <CreateTime>time()</CreateTime>
                   <MsgType><![CDATA[news]]></MsgType>
                   <ArticleCount>1</ArticleCount>
                   <Articles>
                     <item>
-                      <Title><![CDATA['.$goods_name.']]></Title>
-                      <Description><![CDATA['.$goods_desc.']]></Description>
-                      <PicUrl><![CDATA['.$goods_img.']]></PicUrl>
-                      <Url><![CDATA['.$goods_url.']]></Url>
+                      <Title><![CDATA[".$goods_name."]]></Title>
+                      <Description><![CDATA[".$goods_desc."]]></Description>
+                      <PicUrl><![CDATA[".$goods_img."]]></PicUrl>
+                      <Url><![CDATA[".$goods_url."]]></Url>
                     </item>
                   </Articles>
                </xml>";
