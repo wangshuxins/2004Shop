@@ -441,7 +441,7 @@ class WechatController extends Controller
 
         $goods_desc = $goods['goods_desc'];
 
-        $goods_img = $goods['goods_img'];
+        $goods_img ="http://www.wangshuxin.top/".$goods['goods_img'];
 
         $goods_url = $goods['goods_url'];
 
