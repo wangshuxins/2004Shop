@@ -127,6 +127,7 @@ class WechatController extends Controller
 							   }
 						 }else if($obj->EventKey=="wx_data"){
                                  echo $this->picture($obj);
+                                 $content = "123";
                          }else{
 						    $city =  urlencode("北京");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
