@@ -11,6 +11,7 @@ use App\Model\Goods;
 class WechatController extends Controller
 {
     public function wechat(){
+		    ips();exit;
             $str = file_get_contents("php://input");
 
 			//file_put_contents("ddd.txt",$str);

@@ -89,7 +89,7 @@ use GuzzleHttp\Client;
   }
   function get_info($ip)
     {
-    $url = "http://whois.pconline.com.cn/jsFunction.jsp?callback=jsShow&ip=" . $ip;
+    $url = "http://whois.pconline.com.cn/jsFunction.jsp?callback=jsShow&ip=".$ip;
     $ch = curl_init();
     //设置选项，包括URL
     curl_setopt($ch, CURLOPT_URL, $url);
