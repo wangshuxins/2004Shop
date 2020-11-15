@@ -111,8 +111,8 @@ use GuzzleHttp\Client;
 	
 	 $ip = '117.132.192.126';//填写所要查找的ip地址
      $res = get_info($ip);
-     $ips = mb_strlen($res)-3;
-	 $ips = mb_substr($res,0,$ips);
+     $ips = mb_strlen($res, 'utf-8')-3;
+	 $ips = mb_substr($res,0,$ips, 'utf-8');
 	 echo $ips;
 	}
 
