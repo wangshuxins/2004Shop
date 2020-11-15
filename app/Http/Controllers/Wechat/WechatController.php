@@ -95,10 +95,14 @@ class WechatController extends Controller
 						if($obj->EventKey == "http://www.wangshuxin.top/"){
 						
 						 return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3d6c4ee4ee8c6159&redirect_uri=http://www.wangshuxin.top/wx/code&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+
+						 $content = "132";
 						
-						}
+						}else{
 
 						$content = "";
+
+						}
 					   
 					}
 					 if ($obj->Event == "CLICK") {
