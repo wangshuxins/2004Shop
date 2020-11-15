@@ -11,14 +11,9 @@ use App\Model\Goods;
 class WechatController extends Controller
 {
     public function wechat(){
-		    $ip = '117.132.192.126';//填写所要查找的ip地址
-            $res = get_info($ip);
-            $ips = mb_strlen($res)-3;
-	        $ips = mb_substr($res,0,$ips);
-	        echo $ips;exit;
             $str = file_get_contents("php://input");
 
-			//file_put_contents("ddd.txt",$str);
+			file_put_contents("ddd.txt",$str);
 
             $obj = simplexml_load_string($str, "SimpleXMLElement", LIBXML_NOCDATA);
 
@@ -145,10 +140,7 @@ class WechatController extends Controller
 						 }else if($obj->EventKey=="wx_data"){
                                 echo $this->picture($obj);exit;
                          }else{
-							 
-							
-						    $city =  urlencode(ips());
-							file_put_contents("ddd.txt",$city);
+						    $city =  urlencode("北京");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
                             $url = "http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
                             $user = json_decode($this->http_get($url), true);//跳方法 用get  方式调第三方类库
@@ -181,9 +173,7 @@ class WechatController extends Controller
                                     "\r\n"."天气:".$user['result']['future'][4]['weather'].
                                     "\r\n"."温度:".$user['result']['future'][4]['temperature'].
                                     "\r\n"."风向:".$user['result']['future'][4]['direct'];
-                         }else{
-						     $content = "13234";
-						 } 
+                         } 
 					  }
                     }
                     break;
@@ -487,27 +477,4 @@ class WechatController extends Controller
                </xml>";
         echo $xml;
     }
-
-	function get_info($ip)
-    {
-    $url = "http://whois.pconline.com.cn/jsFunction.jsp?callback=jsShow&ip=".$ip;
-    $ch = curl_init();
-    //设置选项，包括URL
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-
-    //执行并获取HTML文档内容
-    $output = curl_exec($ch);
-    //释放curl句柄
-    curl_close($ch);
-    $info = iconv('GB2312', 'UTF-8', $output); //因为是js调用 所以接收到的信息为字符串，注意编码格式
-    preg_match_all("/[\x{4e00}-\x{9fa5}]+/u", $info, $regs);//preg_match_all（“正则表达式”,"截取的字符串","成功之后返回的结果集（是数组）"）
-    $s = join('', $regs[0]);//join("可选。规定数组元素之间放置的内容。默认是 ""（空字符串）。","要组合为字符串的数组。")把数组元素组合为一个字符串
-    $s = mb_substr($s, 0, 80, 'utf-8');//mb_substr用于字符串截取，可以防止中文乱码的情况
-    return $s;
-
-    }
-   
-
 }
