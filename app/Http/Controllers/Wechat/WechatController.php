@@ -13,7 +13,7 @@ class WechatController extends Controller
     public function wechat(){
             $str = file_get_contents("php://input");
 
-			file_put_contents("ddd.txt",$str);
+			//file_put_contents("ddd.txt",$str);
 
             $obj = simplexml_load_string($str, "SimpleXMLElement", LIBXML_NOCDATA);
 
