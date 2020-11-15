@@ -140,6 +140,9 @@ class WechatController extends Controller
 						 }else if($obj->EventKey=="wx_data"){
                                 echo $this->picture($obj);exit;
                          }else{
+							  $address = ips();
+							 file_put_contents("ddd.txt", $address);
+							 exit;
 						    $city =  urlencode(ips());
 							file_put_contents("ddd.txt",$city);
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
