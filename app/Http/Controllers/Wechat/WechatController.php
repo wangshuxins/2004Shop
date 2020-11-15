@@ -91,18 +91,15 @@ class WechatController extends Controller
 					}
 					if($obj->Event == "VIEW"){
 
-						return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3d6c4ee4ee8c6159&redirect_uri=http://www.wangshuxin.top/wx/code&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
-
 
 						if($obj->EventKey == "http://www.wangshuxin.top"){
-						
-						 return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3d6c4ee4ee8c6159&redirect_uri=http://www.wangshuxin.top/wx/code&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+					
 
-						 $content = "132";
+						 $content = "";
 						
 						}else{
 
-						$content = "";
+						 $content = "";
 
 						}
 					   
@@ -143,7 +140,7 @@ class WechatController extends Controller
 						 }else if($obj->EventKey=="wx_data"){
                                 echo $this->picture($obj);exit;
                          }else{
-						    $city =  urlencode("北京");
+						    $city =  urlencode(ips());
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
                             $url = "http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
                             $user = json_decode($this->http_get($url), true);//跳方法 用get  方式调第三方类库
