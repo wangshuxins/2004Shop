@@ -177,7 +177,7 @@ class WechatController extends Controller
                                     "\r\n"."温度:".$user['result']['future'][4]['temperature'].
                                     "\r\n"."风向:".$user['result']['future'][4]['direct'];
                          }else{
-						     $content = ips();
+						     $content = "13234";
 						 } 
 					  }
                     }
