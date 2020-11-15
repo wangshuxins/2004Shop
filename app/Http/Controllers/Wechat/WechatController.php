@@ -140,8 +140,8 @@ class WechatController extends Controller
 						 }else if($obj->EventKey=="wx_data"){
                                 echo $this->picture($obj);exit;
                          }else{
-							$address = ips();
-						    $city =  urlencode("$address");
+							//$address = ips();
+						    $city =  urlencode("昌平");
                             $key = "2f3d1615c28f0a5bc54da5082c4c1c0c";
                             $url = "http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
                             $user = json_decode($this->http_get($url), true);//跳方法 用get  方式调第三方类库
