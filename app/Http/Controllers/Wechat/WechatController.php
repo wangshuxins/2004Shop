@@ -448,7 +448,7 @@ class WechatController extends Controller
 
         $rand = rand(1,$count);
 
-        $goods = Goods::orderBy("goods_id","asc")->where("goods_id",$rand)->first()->toArray();
+        $goods = Goods::select("goods_name","goods_desc","goods_img","goods_url")->orderBy("goods_id","asc")->where("goods_id",$rand)->first()->toArray();
 
         $goods_name = $goods['goods_name'];
 
