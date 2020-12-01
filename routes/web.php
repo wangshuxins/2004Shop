@@ -80,4 +80,9 @@ Route::prefix('/wx')->group(function(){
     Route::post('/','Wechat\WechatController@wechat');       //接入
 	Route::get('/code','Wechat\WechatController@code');
 });
+//小程序
+Route::prefix('/applet')->group(function(){
+    Route::post('/','Xcx\XcxController@xcx');       //接入
+});
+
 
