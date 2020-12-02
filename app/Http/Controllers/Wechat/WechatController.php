@@ -184,21 +184,43 @@ class WechatController extends Controller
 						$text = $obj->Content;
 						$touser = $obj->FromUserName;
 
-						$url = "http://api.tianapi.com/txapi/pinyin/index?key=".$key."&text=".$text;
+						$keys = "select_".$text;
+						$contents = Redis::get($keys);
+						$contents = unserialize($contents);
 
-						$contents = json_decode(file_get_contents($url),true);
-
-						if($contents["code"]=='200'){
+						if(!$contents){
+						   $url = "http://api.tianapi.com/txapi/pinyin/index?key=".$key."&text=".$text;
+						   $contents = json_decode(file_get_contents($url),true);
+						   Redis::set($keys,serialize($contents));
+						   	if($contents["code"]=='200'){
 						
-						$content = $contents['newslist'][0]['pinyin'];
-						$data = [
-						   "touser"=>$touser,
-						   'contents'=>$content,
-						   'time'=>time()
-						];
-                        HistoryModel::insert($data);
+							$content = "首次查询:".$contents['newslist'][0]['pinyin'];
+							$data = [
+							   "touser"=>$touser,
+							   'contents'=>$content,
+							   'time'=>time()
+							];
+							HistoryModel::insert($data);
 
+						}else{
+						
+						   	if($contents["code"]=='200'){
+						
+							$content = "首次查询:".$contents['newslist'][0]['pinyin'];
+							$data = [
+							   "touser"=>$touser,
+							   'contents'=>$content,
+							   'time'=>time()
+							];
+							HistoryModel::insert($data);
+						
 						}
+
+						
+						}
+
+
+					
 						
 						
 					/*
@@ -509,7 +531,7 @@ class WechatController extends Controller
 
 		foreach($history as $k=>$v){
 		
-		   echo date("Y-m-d H:i",$v['time']). "\r\n".$v['contents']. "\r\n";
+		   echo date("Y-m-d H:i",$v['time'])."\r\n".$v['contents']. "\r\n";
 		
 		}
        
