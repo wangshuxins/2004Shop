@@ -507,6 +507,6 @@ class WechatController extends Controller
 	   
 	    $history = HistoryModel::orderBy("time","desc")->limit(10)->get()->toArray();
        
-		echo $history['time']. "\r\n".$history['contents'];
+		dd($history);
 	}
 }
