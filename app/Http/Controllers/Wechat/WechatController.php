@@ -190,11 +190,11 @@ class WechatController extends Controller
 
 						if($contents["code"]=='200'){
 						
-						  $content = $contents['newslist'][0]['pinyin'];
-						  $data = [
+						$content = $contents['newslist'][0]['pinyin'];
+						$data = [
 						   "touser"=>$touser,
 						   'contents'=>$content,
-						   'time'=>time($data)
+						   'time'=>time()
 						];
                         HistoryModel::insert($data);
 
