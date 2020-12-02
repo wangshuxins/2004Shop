@@ -182,6 +182,7 @@ class WechatController extends Controller
                 case 'text':
 					    $key = "284fc0755b050a79ab2895c9a5566588";
 						$text = $obj->Content;
+						$touser = $obj->FromUserName;
 
 						$url = "http://api.tianapi.com/txapi/pinyin/index?key=".$key."&text=".$text;
 
@@ -190,15 +191,16 @@ class WechatController extends Controller
 						if($contents["code"]=='200'){
 						
 						  $content = $contents['newslist'][0]['pinyin'];
-						}
-						$touser = $obj->FromUserName;
-						$data = [
+						  $data = [
 						   "touser"=>$touser,
 						   'contents'=>$content,
 						   'time'=>time($data)
 						];
                         HistoryModel::insert($data);
 
+						}
+						
+						
 					/*
                         if ($obj->Content == "天气") {
                             $content = "您好,请输入您想查询的您的地区的天气，比如:'北京'";
