@@ -502,4 +502,11 @@ class WechatController extends Controller
                </xml>";
         echo $xml;
     }
+	public function history(){
+	
+	   
+	    $history = HistoryModel::orderBy("time","desc")->limit(10)->get();
+
+		dd($history);
+	}
 }

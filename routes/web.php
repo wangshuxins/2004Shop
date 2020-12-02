@@ -79,6 +79,7 @@ Route::post('/coupon/test','CouponController@test');
 Route::prefix('/wx')->group(function(){
     Route::post('/','Wechat\WechatController@wechat');       //接入
 	Route::get('/code','Wechat\WechatController@code');
+	Route::get('/history','Wechat\WechatController@history');
 });
 //小程序
 Route::prefix('/applet')->group(function(){
