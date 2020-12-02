@@ -188,10 +188,26 @@ class WechatController extends Controller
 						$contents = Redis::get($keys);
 						$contents = unserialize($contents);
 
-						if(!$contents){
-						   $url = "http://api.tianapi.com/txapi/pinyin/index?key=".$key."&text=".$text;
-						   $contents = json_decode(file_get_contents($url),true);
-						   Redis::set($keys,serialize($contents));
+						if($contents){
+
+							if($contents["code"]=='200'){
+							
+								$content = "redis查询:".$contents['newslist'][0]['pinyin'];
+								$data = [
+								   "touser"=>$touser,
+								   'contents'=>$content,
+								   'time'=>time()
+								];
+								HistoryModel::insert($data);
+							
+							}
+						  
+
+						}else{
+						
+						    $url = "http://api.tianapi.com/txapi/pinyin/index?key=".$key."&text=".$text;
+						    $contents = json_decode(file_get_contents($url),true);
+						    Redis::set($keys,serialize($contents));
 						   	if($contents["code"]=='200'){
 						
 							$content = "首次查询:".$contents['newslist'][0]['pinyin'];
@@ -200,24 +216,8 @@ class WechatController extends Controller
 							   'contents'=>$content,
 							   'time'=>time()
 							];
-							HistoryModel::insert($data);
-
-						}else{
-						
-						   	if($contents["code"]=='200'){
-						
-							$content = "redis查询:".$contents['newslist'][0]['pinyin'];
-							$data = [
-							   "touser"=>$touser,
-							   'contents'=>$content,
-							   'time'=>time()
-							];
-							HistoryModel::insert($data);
-						
-						}
-
-						
-						}
+							HistoryModel::insert($data);	
+						  }
 						}
 
 
