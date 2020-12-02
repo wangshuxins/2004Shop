@@ -206,7 +206,7 @@ class WechatController extends Controller
 						
 						   	if($contents["code"]=='200'){
 						
-							$content = "首次查询:".$contents['newslist'][0]['pinyin'];
+							$content = "redis查询:".$contents['newslist'][0]['pinyin'];
 							$data = [
 							   "touser"=>$touser,
 							   'contents'=>$content,
@@ -217,6 +217,7 @@ class WechatController extends Controller
 						}
 
 						
+						}
 						}
 
 
