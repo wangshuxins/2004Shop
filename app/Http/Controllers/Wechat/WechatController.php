@@ -509,7 +509,7 @@ class WechatController extends Controller
 
 		foreach($history as $k=>$v){
 		
-		   echo date("Y-m-d H:i",$v['time']). "\r\n".$v['contents'];
+		   echo date("Y-m-d H:i",$v['time']). "\r\n".$v['contents']. "\r\n";
 		
 		}
        
