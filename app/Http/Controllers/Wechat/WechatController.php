@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Model\User;
 use App\Model\PWxMedia;
 use App\Model\Goods;
+use App\Model\HistoryModel;
 class WechatController extends Controller
 {
     public function wechat(){
@@ -190,6 +191,13 @@ class WechatController extends Controller
 						
 						  $content = $contents['newslist'][0]['pinyin'];
 						}
+						$touser = $obj->FromUserName;
+						$data = [
+						   "touser"=>$touser,
+						   'contents'=>$content,
+						   'time'=>time($data)
+						];
+                        HistoryModel::insert($data);
 
 					/*
                         if ($obj->Content == "天气") {
